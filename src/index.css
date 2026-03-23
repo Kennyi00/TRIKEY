@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 15% 6%;
+    --foreground: 38 40% 82%;
+    --card: 220 15% 10%;
+    --card-foreground: 38 40% 82%;
+    --popover: 220 15% 10%;
+    --popover-foreground: 38 40% 82%;
+    --primary: 42 88% 52%;
+    --primary-foreground: 220 20% 6%;
+    --secondary: 220 12% 14%;
+    --secondary-foreground: 38 40% 82%;
+    --muted: 220 12% 14%;
+    --muted-foreground: 38 15% 48%;
+    --accent: 35 70% 40%;
+    --accent-foreground: 42 88% 85%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 35 25% 20%;
+    --input: 35 25% 20%;
+    --ring: 42 88% 52%;
+    --chart-1: 42 88% 52%;
+    --chart-2: 35 70% 40%;
+    --chart-3: 0 70% 50%;
+    --chart-4: 200 60% 40%;
+    --chart-5: 280 50% 45%;
+    --radius: 0.25rem;
+
+    --font-pixel: 'Press Start 2P', monospace;
+    --font-vt: 'VT323', monospace;
+    --font-mono: 'Share Tech Mono', monospace;
+  }
+
+  .dark {
+    --background: 220 15% 6%;
+    --foreground: 38 40% 82%;
+    --card: 220 15% 10%;
+    --card-foreground: 38 40% 82%;
+    --popover: 220 15% 10%;
+    --popover-foreground: 38 40% 82%;
+    --primary: 42 88% 52%;
+    --primary-foreground: 220 20% 6%;
+    --secondary: 220 12% 14%;
+    --secondary-foreground: 38 40% 82%;
+    --muted: 220 12% 14%;
+    --muted-foreground: 38 15% 48%;
+    --accent: 35 70% 40%;
+    --accent-foreground: 42 88% 85%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 35 25% 20%;
+    --input: 35 25% 20%;
+    --ring: 42 88% 52%;
+    --chart-1: 42 88% 52%;
+    --chart-2: 35 70% 40%;
+    --chart-3: 0 70% 50%;
+    --chart-4: 200 60% 40%;
+    --chart-5: 280 50% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-vt);
+  }
+}
+
+/* VHS Scanlines */
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* CRT Vignette */
+.crt-vignette {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+/* VHS Tracking glitch */
+@keyframes vhsTracking {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-2px); }
+  20% { transform: translateX(3px); }
+  30% { transform: translateX(-1px); }
+  40% { transform: translateX(0); }
+}
+
+@keyframes glitchText {
+  0%, 100% {
+    text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
+  }
+  25% {
+    text-shadow: -2px 0 #ff0000, 2px 0 #00ffff;
+  }
+  50% {
+    text-shadow: 2px 2px #ff0000, -2px -2px #00ffff;
+  }
+  75% {
+    text-shadow: -2px 2px #ff0000, 2px -2px #00ffff;
+  }
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 1;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes rgbShift {
+  0%, 100% {
+    text-shadow: 1px 0 rgba(255, 140, 0, 0.5), -1px 0 rgba(255, 200, 50, 0.5);
+  }
+  50% {
+    text-shadow: -1px 0 rgba(255, 140, 0, 0.5), 1px 0 rgba(255, 200, 50, 0.5);
+  }
+}
+
+@keyframes staticNoise {
+  0% { background-position: 0 0; }
+  10% { background-position: -5% -10%; }
+  20% { background-position: -15% 5%; }
+  30% { background-position: 7% -25%; }
+  40% { background-position: -5% 25%; }
+  50% { background-position: -15% 10%; }
+  60% { background-position: 15% 0%; }
+  70% { background-position: 0% 15%; }
+  80% { background-position: 3% 35%; }
+  90% { background-position: -10% 10%; }
+  100% { background-position: 0 0; }
+}
+
+@keyframes borderGlow {
+  0%, 100% { border-color: hsl(35, 40%, 22%); box-shadow: 0 0 5px hsl(35, 60%, 12%); }
+  50% { border-color: hsl(42, 70%, 45%); box-shadow: 0 0 15px hsl(42, 60%, 25%); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-glitch {
+  animation: glitchText 3s infinite;
+}
+
+.animate-flicker {
+  animation: flicker 4s infinite;
+}
+
+.animate-rgb-shift {
+  animation: rgbShift 2s infinite;
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+/* VHS noise overlay */
+.vhs-noise {
+  position: relative;
+}
+.vhs-noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+  animation: staticNoise 0.5s steps(10) infinite;
+  pointer-events: none;
+  z-index: 1;
+}
